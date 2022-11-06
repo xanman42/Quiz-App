@@ -37,12 +37,15 @@ class QuizUI:
         self.window.mainloop()
 
     def get_next_question(self):
+        self.canvas.config(bg='white')
         if self.quiz.still_has_questions():
             q_text = self.quiz.next_question()
             self.score.config(text=f"score: {self.quiz.score}")
-            self.canvas.config(bg='white')
             self.canvas.itemconfig(self.text, text=q_text)
-
+        else:
+            self.canvas.itemconfig(self.text, text="You've reached the end")
+            self.true_but.config(state='disabled')
+            self.false_but.config(state='disabled')
 
     def true_clicked(self):
         is_right = self.quiz.check_answer('true')
